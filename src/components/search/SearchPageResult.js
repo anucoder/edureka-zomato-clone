@@ -39,7 +39,7 @@ function SearchPageResult() {
   let [filter, setFilter] = useState({ meal_type: meal_id });
 
   let filterOperation = async (filter) => {
-    let URL = "http://localhost:5003/api/filter/";
+    let URL = "https://zomato-clone-int-project.herokuapp.com/api/filter/";
     try {
       let { data } = await axios.post(URL, filter);
       if (data.status === true) setRestaurantList([...data.result_page]);
@@ -74,7 +74,7 @@ function SearchPageResult() {
   let getLocationList = async () => {
     try {
       let { data } = await axios.get(
-        "http://localhost:5003/api/get-location-list"
+        "https://zomato-clone-int-project.herokuapp.com/api/get-location-list"
       );
       if (data.status === true) setLocationList([...data.loclist]);
       else setLocationList([]);
