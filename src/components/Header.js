@@ -25,7 +25,7 @@ function Header(props) {
       title: "User Logged in successfully",
       text: "",
     }).then(() => {
-      window.location.reload();
+      window.location.reload('/');
     });
   };
 
@@ -42,7 +42,7 @@ function Header(props) {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem("auth-token");
-        window.location.reload();
+        window.location.reload('/`');
         setUserLogin(false);
       }
     });   
