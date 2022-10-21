@@ -37,13 +37,15 @@ function SearchPageResult() {
   let [restaurantList, setRestaurantList] = useState([]);
   let [locationList, setLocationList] = useState([]);
   let [filter, setFilter] = useState({ meal_type: meal_id });
+  let [pages,setPages] = useState([0]);
 
   let filterOperation = async (filter) => {
     let URL = "https://zomato-clone-int-project.herokuapp.com/api/filter/";
     try {
       let { data } = await axios.post(URL, filter);
-      if (data.status === true) setRestaurantList([...data.result_page]);
-      else setRestaurantList([]);
+      if(data.status === true){ setPages([...Array(data.pages).keys()]);
+        setRestaurantList([...data.result_page]);}
+      else{setRestaurantList([]);}
     } catch (error) {
       console.log(error);
       alert("Server error");
@@ -329,16 +331,14 @@ function SearchPageResult() {
               );
             })}
 
-            <div className="col-12 pagination d-flex justify-content-center">
+            {pages.length >1 ? ( <div className="col-12 pagination d-flex justify-content-center">
               <ul className="pages">
                 <li>&lt;</li>
-                <li className="active">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
+                {pages.map((page,index)=>{
+                  return (<li key={index} className="active">{page}</li>)})}
                 <li>&gt;</li>
               </ul>
-            </div>
+            </div>) : null }
           </div>
         </div>
       </div>
