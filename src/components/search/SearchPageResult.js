@@ -45,7 +45,7 @@ function SearchPageResult() {
       let { data } = await axios.post(URL, filter);
       if(data.status === true){ setPages([...Array(data.pages).keys()]);
         setRestaurantList([...data.result_page]);}
-      else{setRestaurantList([]);}
+      else{setRestaurantList([]);setPages([])}
     } catch (error) {
       console.log(error);
       alert("Server error");
@@ -72,6 +72,15 @@ function SearchPageResult() {
     setFilter({ ..._filter });
     filterOperation(_filter);
   };
+
+  //pagination
+  let pagination = (page) => {
+    let _filter = { ...filter };
+    _filter["page"] = page;
+    setFilter({ ..._filter });
+    filterOperation(_filter);
+  };
+
 
   let getLocationList = async () => {
     try {
@@ -335,10 +344,12 @@ function SearchPageResult() {
               <ul className="pages">
                 <li>&lt;</li>
                 {pages.map((page,index)=>{
-                  return (<li key={index} className="active">{page}</li>)})}
+                  return (<li key={index} className="hand" onClick={() => pagination(page+1)}>{page+1}</li>)})}
                 <li>&gt;</li>
               </ul>
-            </div>) : null }
+            </div>) : pages.length==0 ? (
+              <div className="text-muted fw-bold fs-5"> No Results</div>
+            ) : null }
           </div>
         </div>
       </div>
