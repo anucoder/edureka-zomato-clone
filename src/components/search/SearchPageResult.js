@@ -68,6 +68,9 @@ function SearchPageResult() {
         _filter["lcost"] = costfortwo[0];
         _filter["hcost"] = costfortwo[1];
         break;
+      case "cuisine":
+        _filter["cuisine"].push(Number(value));
+        break;  
     }
     setFilter({ ..._filter });
     filterOperation(_filter);
@@ -148,6 +151,7 @@ function SearchPageResult() {
                     type="checkbox"
                     className="form-check-input"
                     value="1"
+                    onChange={(event) => makeFilteration(event, "cuisine")}
                   />
                   <label htmlFor="" className="form-check-label ms-1">
                     North Indian
@@ -158,6 +162,7 @@ function SearchPageResult() {
                     type="checkbox"
                     className="form-check-input"
                     value="2"
+                    onChange={(event) => makeFilteration(event, "cuisine")}
                   />
                   <label htmlFor="" className="form-check-label ms-1">
                     South Indian
@@ -168,6 +173,7 @@ function SearchPageResult() {
                     type="checkbox"
                     className="form-check-input"
                     value="3"
+                    onChange={(event) => makeFilteration(event, "cuisine")}
                   />
                   <label htmlFor="" className="form-check-label ms-1">
                     Chineese
@@ -178,6 +184,7 @@ function SearchPageResult() {
                     type="checkbox"
                     className="form-check-input"
                     value="4"
+                    onChange={(event) => makeFilteration(event, "cuisine")}
                   />
                   <label htmlFor="" className="form-check-label ms-1">
                     Fast food
@@ -188,6 +195,7 @@ function SearchPageResult() {
                     type="checkbox"
                     className="form-check-input"
                     value="5"
+                    onChange={(event) => makeFilteration(event, "cuisine")}
                   />
                   <label htmlFor="" className="form-check-label ms-1">
                     Street food
@@ -342,10 +350,10 @@ function SearchPageResult() {
 
             {pages.length >1 ? ( <div className="col-12 pagination d-flex justify-content-center">
               <ul className="pages">
-                <li>&lt;</li>
+                {/* <li className="hand">&lt;</li> */}
                 {pages.map((page,index)=>{
                   return (<li key={index} className="hand" onClick={() => pagination(page+1)}>{page+1}</li>)})}
-                <li>&gt;</li>
+                {/* <li className="hand">&gt;</li> */}
               </ul>
             </div>) : pages.length==0 ? (
               <div className="text-muted fw-bold fs-5"> No Results</div>

@@ -76,6 +76,11 @@
   color: gray;
   font-weight: bold;
 }
+.pages li:hover {
+  border: 2px solid white;
+  color: white;
+  background-color: gray;
+}
 .pages .active {
   border: 1px solid white;
   color: white;
