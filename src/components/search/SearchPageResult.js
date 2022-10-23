@@ -40,6 +40,7 @@ function SearchPageResult() {
   let [pages, setPages] = useState([0]);
 
   let filterOperation = async (filter) => {
+    console.log(filter);
     let URL = "https://zomato-clone-int-project.herokuapp.com/api/filter/";
     try {
       let { data } = await axios.post(URL, filter);
@@ -61,25 +62,33 @@ function SearchPageResult() {
     let _filter = { ...filter };
     switch (type) {
       case "location":
+        _filter["page"]=1;
         if (Number(value) > 0) _filter["location"] = Number(value);
         else delete _filter["location"];
         break;
       case "sort":
+        _filter["page"]=1;
         _filter["sort"] = Number(value);
         break;
       case "cost-for-two":
+        _filter["page"]=1;
         let costfortwo = value.split("-");
         _filter["lcost"] = costfortwo[0];
         _filter["hcost"] = costfortwo[1];
         break;
       case "cuisine":
+        _filter["page"]=1;
         let _cuisine = [];
         if (_filter["cuisine"] !== undefined)
           _cuisine = [..._filter["cuisine"]];
-
-        _cuisine.push(Number(value));
-        console.log(_cuisine);
-        _filter["cuisine"] = [..._cuisine];
+        if (event.target.checked) _cuisine.push(Number(value));
+        else {
+          let index = _cuisine.indexOf(Number(value));
+          _cuisine.splice(index, 1);
+        }
+        // console.log(_cuisine);
+        if (_cuisine.length === 0) delete _filter["cuisine"];
+        else _filter["cuisine"] = [..._cuisine];
         break;
     }
     setFilter({ ..._filter });
