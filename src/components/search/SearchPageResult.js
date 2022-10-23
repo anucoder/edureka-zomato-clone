@@ -36,16 +36,20 @@ function SearchPageResult() {
 
   let [restaurantList, setRestaurantList] = useState([]);
   let [locationList, setLocationList] = useState([]);
-  let [filter, setFilter] = useState({ meal_type: meal_id,cuisine:[1,2,4] });
-  let [pages,setPages] = useState([0]);
+  let [filter, setFilter] = useState({ meal_type: meal_id });
+  let [pages, setPages] = useState([0]);
 
   let filterOperation = async (filter) => {
     let URL = "https://zomato-clone-int-project.herokuapp.com/api/filter/";
     try {
       let { data } = await axios.post(URL, filter);
-      if(data.status === true){ setPages([...Array(data.pages).keys()]);
-        setRestaurantList([...data.result_page]);}
-      else{setRestaurantList([]);setPages([])}
+      if (data.status === true) {
+        setPages([...Array(data.pages).keys()]);
+        setRestaurantList([...data.result_page]);
+      } else {
+        setRestaurantList([]);
+        setPages([]);
+      }
     } catch (error) {
       console.log(error);
       alert("Server error");
@@ -69,8 +73,15 @@ function SearchPageResult() {
         _filter["hcost"] = costfortwo[1];
         break;
       case "cuisine":
-        _filter["cuisine"].push(Number(value));
-        break;  
+        if (_filter["cuisine"] === undefined) {
+          let _cuisine = [];
+        } else {
+          let _cuisine = [..._filter["cuisine"]];
+        }
+        _cuisine.push(Number(value));
+        console.log(_cuisine);
+        _filter["cuisine"] = [..._cuisine];
+        break;
     }
     setFilter({ ..._filter });
     filterOperation(_filter);
@@ -83,7 +94,6 @@ function SearchPageResult() {
     setFilter({ ..._filter });
     filterOperation(_filter);
   };
-
 
   let getLocationList = async () => {
     try {
@@ -348,16 +358,27 @@ function SearchPageResult() {
               );
             })}
 
-            {pages.length >1 ? ( <div className="col-12 pagination d-flex justify-content-center">
-              <ul className="pages">
-                {/* <li className="hand">&lt;</li> */}
-                {pages.map((page,index)=>{
-                  return (<li key={index} className="hand" onClick={() => pagination(page+1)}>{page+1}</li>)})}
-                {/* <li className="hand">&gt;</li> */}
-              </ul>
-            </div>) : pages.length==0 ? (
+            {pages.length > 1 ? (
+              <div className="col-12 pagination d-flex justify-content-center">
+                <ul className="pages">
+                  {/* <li className="hand">&lt;</li> */}
+                  {pages.map((page, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="hand"
+                        onClick={() => pagination(page + 1)}
+                      >
+                        {page + 1}
+                      </li>
+                    );
+                  })}
+                  {/* <li className="hand">&gt;</li> */}
+                </ul>
+              </div>
+            ) : pages.length == 0 ? (
               <div className="text-muted fw-bold fs-5"> No Results</div>
-            ) : null }
+            ) : null}
           </div>
         </div>
       </div>
