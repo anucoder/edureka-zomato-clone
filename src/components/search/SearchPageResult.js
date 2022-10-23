@@ -73,11 +73,10 @@ function SearchPageResult() {
         _filter["hcost"] = costfortwo[1];
         break;
       case "cuisine":
-        if (_filter["cuisine"] === undefined) {
-          let _cuisine = [];
-        } else {
-          let _cuisine = [..._filter["cuisine"]];
-        }
+        let _cuisine = [];
+        if (_filter["cuisine"] !== undefined)
+          _cuisine = [..._filter["cuisine"]];
+
         _cuisine.push(Number(value));
         console.log(_cuisine);
         _filter["cuisine"] = [..._cuisine];
