@@ -36,7 +36,7 @@ function SearchPageResult() {
 
   let [restaurantList, setRestaurantList] = useState([]);
   let [locationList, setLocationList] = useState([]);
-  let [filter, setFilter] = useState({ meal_type: meal_id });
+  let [filter, setFilter] = useState({ meal_type: meal_id,cuisine:[] });
   let [pages,setPages] = useState([0]);
 
   let filterOperation = async (filter) => {
