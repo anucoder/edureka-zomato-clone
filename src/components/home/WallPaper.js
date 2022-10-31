@@ -73,7 +73,7 @@ function WallPaper() {
               Create an account
             </button>
           </div> */}
-          <Header color="" />
+          <Header color="" logo={false}/>
         </header>
         <section className="col-12 d-flex flex-column align-items-center justify-content-center">
           <p className="brand-name fw-bold my-lg-2 mb-0">e!</p>

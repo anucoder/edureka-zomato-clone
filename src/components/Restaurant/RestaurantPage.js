@@ -375,7 +375,7 @@ function RestaurantPage() {
       </div>
 
       {/* RestaurantPage */}
-      <Header color="bg-danger"/>
+      <Header color="bg-danger" logo={true}/>
       <section className="row justify-content-center">
         <section className="col-11 mt-2 restaurant-main-image position-relative">
           <img src={"/images/" + restaurant.image} alt="" />

@@ -113,9 +113,9 @@ function Header(props) {
         <section>
           <div className={"row justify-content-center " + props.color}>
             <div className="col-10 d-flex justify-content-between py-2">
-              <p className="m-0 brand hand" onClick={() => navigate("/")}>
+              {props.logo ? (<p className="m-0 brand hand" onClick={() => navigate("/")}>
                 e!
-              </p>
+              </p>) : <p></p>}
               {userLogin ? (
                 <div>
                   <span className="fs-5 fw-bold text-white me-3">
