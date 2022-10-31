@@ -5,6 +5,8 @@ import Header from "../Header";
 function WallPaper() {
   let [locationList, setLocationList] = useState([]);
   let [disabled, setDisabled] = useState(true);
+  let [restaurantList, setRestaurantList] = useState([]);
+  let [restbyLocation,setrestByLocation] = useState([]);
 
   let getLocationList = async () => {
     try {
@@ -29,15 +31,32 @@ function WallPaper() {
         // console.log(data);
         if (data.status === true) {
           if (data.restaurantListByLoc.length === 0) setDisabled(true);
-          else setDisabled(false);
+          else {
+            setDisabled(false);
+            setRestaurantList([...data.restaurantListByLoc]);
+            // console.log(restaurantList)
+          }
         }
         // setLocationList([...data.loclist]);
-        // else setLocationList([]);
+        else setRestaurantList([]);
       } catch (error) {
         console.log(error);
         alert("Server error");
       }
     }
+  };
+
+  let getRestaurantList = async (event) => {
+    let searchName = event.target.value;
+    // console.log(searchName)
+    if(searchName!==""){
+    let results = restaurantList.filter((restaurant) => {
+      return restaurant.name.toLowerCase().includes(searchName.toLowerCase());
+    });
+    setrestByLocation([...results]);
+  }
+  else setrestByLocation([])
+    // console.log(restbyLocation)
   };
 
   useEffect(() => {
@@ -54,7 +73,7 @@ function WallPaper() {
               Create an account
             </button>
           </div> */}
-          <Header color=""/>
+          <Header color="" />
         </header>
         <section className="col-12 d-flex flex-column align-items-center justify-content-center">
           <p className="brand-name fw-bold my-lg-2 mb-0">e!</p>
@@ -76,7 +95,8 @@ function WallPaper() {
               })}
               ;
             </select>
-            <div className="w-75 input-group">
+            <div className="w-75 relative">
+            <div className="input-group">
               <span className="input-group-text bg-white">
                 <i className="fa fa-search text-primary"></i>
               </span>
@@ -85,8 +105,27 @@ function WallPaper() {
                 type="text"
                 className="form-control py-2 px-3"
                 placeholder="Search for restaurants"
+                onChange={(event) => {
+                  getRestaurantList(event);
+                }}
               />
             </div>
+            <div className="dd2-restaurants bg-white d-none d-lg-block">
+              <ul className="ps-0 mb-0">
+                {restbyLocation.map((restaurant,index)=>{
+                return (<li key={index}>
+                  <div className="dd2-result">
+                    <img src={"images/" + restaurant.image} alt="breakfast" />
+                    <div className="dd2-result-text ms-3">
+                      <p className="dd2-title fw-bold mb-0">{restaurant.name}</p>
+                      <p className="dd2-sub-title">{restaurant.locality},{restaurant.city}</p>
+                    </div>
+                  </div>
+                </li>);
+              })}
+              </ul>
+            </div>
+          </div>
           </div>
         </section>
       </section>

@@ -36,6 +36,42 @@
   cursor: pointer;
 }
 
+.relative{
+  position: relative;
+}
+
+.absolute{
+  position: absolute;
+}
+
+.dd2-restaurants {
+  position: absolute;
+  top:50px;
+  width:100%;
+  box-shadow: 0 3px 6px 0 #00000029;
+}
+
+.dd2-restaurants ul li{
+  padding-top: 10px;
+  padding-left: 30px;
+  list-style: none;
+  /* height:35px; */
+  color: #636F88;
+  border-bottom: 1px solid #00000029;
+
+}
+
+.dd2-result{
+  display: flex;
+}
+
+.dd2-restaurants ul li img{
+  height: 50px;
+  width:50px;
+  border-radius: 50px;
+
+}
+
 /* search page start */
 .brand {
   background-color: white;
