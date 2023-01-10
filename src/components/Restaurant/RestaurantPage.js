@@ -46,7 +46,7 @@ function RestaurantPage() {
 
   //Restaurant details
   let getRestaurantDetails = async () => {
-    let URL = "https://zomato-clone-int-project.herokuapp.com/api/get-restaurant-details/" + id;
+    let URL = "https://zomato-clone-be.up.railway.app/api/get-restaurant-details/" + id;
     try {
       let { data } = await axios.get(URL);
       if (data.status === true)
@@ -62,7 +62,7 @@ function RestaurantPage() {
 
   let getMenuItems = async () => {
     // console.log(id);
-    let URL1 = "https://zomato-clone-int-project.herokuapp.com/api/get-menu-items-by-restId/" + id;
+    let URL1 = "https://zomato-clone-be.up.railway.app/api/get-menu-items-by-restId/" + id;
     try {
       let { data } = await axios.get(URL1);
       if (data.status === true) setMenuItems([...data.menu]);
@@ -120,7 +120,7 @@ function RestaurantPage() {
       amount : totalPrice
     }
     var {data} = await axios.post(
-      "https://zomato-clone-int-project.herokuapp.com/api/payment/gen-order",serverData
+      "https://zomato-clone-be.up.railway.app/api/payment/gen-order",serverData
     );
       var order = data.order;
 
@@ -140,7 +140,7 @@ function RestaurantPage() {
           razorpay_signature: response.razorpay_signature,
         };
         var { data } = await axios.post(
-          "https://zomato-clone-int-project.herokuapp.com/api/payment/verify",
+          "https://zomato-clone-be.up.railway.app/api/payment/verify",
           sendData
         );
         if(data.status===true){

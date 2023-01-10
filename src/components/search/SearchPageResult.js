@@ -41,7 +41,7 @@ function SearchPageResult() {
 
   let filterOperation = async (filter) => {
     console.log(filter);
-    let URL = "https://zomato-clone-int-project.herokuapp.com/api/filter/";
+    let URL = "https://zomato-clone-be.up.railway.app/api/filter/";
     try {
       let { data } = await axios.post(URL, filter);
       if (data.status === true) {
@@ -106,7 +106,7 @@ function SearchPageResult() {
   let getLocationList = async () => {
     try {
       let { data } = await axios.get(
-        "https://zomato-clone-int-project.herokuapp.com/api/get-location-list"
+        "https://zomato-clone-be.up.railway.app/api/get-location-list"
       );
       if (data.status === true) setLocationList([...data.loclist]);
       else setLocationList([]);

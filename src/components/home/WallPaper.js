@@ -11,7 +11,7 @@ function WallPaper() {
   let getLocationList = async () => {
     try {
       let { data } = await axios.get(
-        "https://zomato-clone-int-project.herokuapp.com/api/get-location-list"
+        "https://zomato-clone-be.up.railway.app/api/get-location-list"
       );
       if (data.status === true) setLocationList([...data.loclist]);
       else setLocationList([]);
@@ -26,7 +26,7 @@ function WallPaper() {
     if (value !== "") {
       try {
         let { data } = await axios.get(
-          `https://zomato-clone-int-project.herokuapp.com/api/get-restaurants-by-loc-id/${value}`
+          `https://zomato-clone-be.up.railway.app/api/get-restaurants-by-loc-id/${value}`
         );
         // console.log(data);
         if (data.status === true) {
